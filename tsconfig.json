@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "./out",
+    "rootDir": "./src",
+    "sourceMap": true,
+    "lib": ["es6", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "esModuleInterop":true,
+  },
+  "include": [
+    "src/**/*.ts"
+],
+"exclude": [
+    "node_modules"
+]
+
+}
