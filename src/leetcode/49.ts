@@ -39,7 +39,7 @@ function groupAnagrams(strs: string[]): string[][] {
             hashMap.set(sortedStr, []);
         }
         hashMap.get(sortedStr).push(str);
-    });
+    });        
     return Array.from(hashMap.values());
 }
 
