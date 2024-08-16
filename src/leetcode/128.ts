@@ -18,62 +18,104 @@ Input: nums = [0,3,7,2,5,8,4,6,0,1]
 Output: 9
 */
 
-function longestConsecutive(nums: number[]): number {
+//This is old solution, with O(NlogN)
+// function longestConsecutive(nums: number[]): number {
 
-    //Check if array nums is empty
+//     //Check if array nums is empty
+//     if (nums.length === 0){
+//         return 0;
+//     }
+
+//     const arrayMap = new Map<number, boolean>();
+
+//     //Add to map while sorting the list
+//     const sortedNums = nums.sort((a, b) => {
+//         //Set for map
+//         if (!arrayMap.has(a)){
+//             arrayMap.set(a, false)
+//         }
+//         if (!arrayMap.has(b)){
+//             arrayMap.set(b, false)
+//         }
+//         return a - b;
+//     })
+
+//     let result = 1;
+//     let count = 1;
+//     let tempPrevious = sortedNums[0];
+//     for (let i = 1; i < sortedNums.length; i ++){
+
+//         const currentElement = sortedNums[i];
+        
+//         //If map does not have this element => That mean is not concurence anymore
+//         if (!arrayMap.has(currentElement)){
+//             count = 0;
+//             continue;
+//         }
+
+//         //If we already read this currentElement in the past => skip it
+//         if (arrayMap.get(currentElement) === true){
+//             continue;
+//         }
+
+//         arrayMap.set(currentElement, true);
+
+//         if (currentElement - tempPrevious !== 1){
+//             tempPrevious = currentElement;
+//             count = 1;
+//             continue;
+//         }
+
+//         tempPrevious = currentElement;
+//         count ++;
+//         if (count > result){
+//             result = count;
+//         }
+//     }
+
+//     return result;
+// };
+
+
+// 0, 1, 3, 5, 6
+
+//This is new solution, with O(N)
+function longestConsecutive(nums: number[]): number  {
+    
     if (nums.length === 0){
         return 0;
     }
 
-    const arrayMap = new Map<number, boolean>();
+    //Create a set
+    const setArray = new Set(nums);
+    let result = 0;
 
-    //Add to map while sorting the list
-    const sortedNums = nums.sort((a, b) => {
-        //Set for map
-        if (!arrayMap.has(a)){
-            arrayMap.set(a, false)
-        }
-        if (!arrayMap.has(b)){
-            arrayMap.set(b, false)
-        }
-        return a - b;
-    })
+    for (let i = 0 ; i < nums.length; i ++){
+        let count = 0;
 
-    let result = 1;
-    let count = 1;
-    let tempPrevious = sortedNums[0];
-    for (let i = 1; i < sortedNums.length; i ++){
+        //Check this is a start number or not by check the n - 1 exists on set
+        if (!setArray.has(nums[i] - 1)){
+            count ++ ;
 
-        const currentElement = sortedNums[i];
-        
-        //If map does not have this element => That mean is not concurence anymore
-        if (!arrayMap.has(currentElement)){
-            count = 0;
-            continue;
-        }
+            //Check i + 1 until does not have in set
+            while(true){
+                if (setArray.has(nums[i] + 1)){
+                    count ++ ;
+                }else{
+                    break;
+                }
+                nums[i] ++;
+            }
 
-        //If we already read this currentElement in the past => skip it
-        if (arrayMap.get(currentElement) === true){
-            continue;
-        }
-
-        arrayMap.set(currentElement, true);
-
-        if (currentElement - tempPrevious !== 1){
-            tempPrevious = currentElement;
-            count = 1;
-            continue;
-        }
-
-        tempPrevious = currentElement;
-        count ++;
-        if (count > result){
-            result = count;
+            if (count > result){
+                result = count;
+            }
         }
     }
 
     return result;
-};
-// 0, 1, 3, 5, 6
-const numberlist = [0,-1]
+}
+
+
+const numberlist = [0,3,7,2,5,8,4,6,0,1]
 console.log("result: ", longestConsecutive(numberlist));
