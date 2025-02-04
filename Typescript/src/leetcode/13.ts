@@ -21,6 +21,8 @@ function converttToInt(value: string): number {
 export function romanToInt(s: string): number {
     const romanArray = s.split('');
     var lastInt = 100000;
+    console.log("Hello world!!!");
+    
     var result = 0;
     for (var i = 0; i < romanArray.length; i++) {
         var atInt = converttToInt(romanArray[i]);
